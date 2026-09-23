@@ -676,6 +676,62 @@ h1 {
   font-size: 14px;
 }
 
+.panel-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.panel-toggle {
+  display: inline-flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 6px;
+  border: 1px solid #b8cccb;
+  border-radius: 7px;
+  color: var(--teal-800);
+  background: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.panel-toggle:hover {
+  border-color: var(--teal-700);
+  background: var(--teal-100);
+}
+
+.panel-toggle:focus-visible {
+  outline: 3px solid rgb(20 114 131 / 22%);
+  outline-offset: 2px;
+}
+
+.panel-toggle svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  transition: transform 160ms ease;
+}
+
+.collapsible-panel.is-collapsed .section-heading {
+  margin-bottom: 0;
+}
+
+.collapsible-panel.is-collapsed .panel-toggle svg {
+  transform: rotate(-90deg);
+}
+
+.collapsible-panel.is-collapsed {
+  padding-bottom: 14px;
+}
+
 .text-button {
   padding: 2px 0;
   border: 0;

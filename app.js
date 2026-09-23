@@ -165,6 +165,7 @@ const elements = {
   scatterYField: document.querySelector("#scatter-y-field"),
   statisticsChart: document.querySelector("#statistics-chart"),
   statisticsSummary: document.querySelector("#statistics-summary"),
+  panelToggles: [...document.querySelectorAll("[data-panel-toggle]")],
   basemap: document.querySelector("#basemap-select"),
   projection: document.querySelector("#projection-toggle"),
   fit: document.querySelector("#fit-data"),
@@ -1264,6 +1265,17 @@ function closeSidebar() {
   elements.sidebarScrim.hidden = true;
 }
 
+function togglePanel(toggle) {
+  const content = document.querySelector(`#${toggle.getAttribute("aria-controls")}`);
+  if (!content) return;
+  const collapsed = !content.hidden;
+  content.hidden = collapsed;
+  toggle.setAttribute("aria-expanded", String(!collapsed));
+  toggle.setAttribute("aria-label", `${toggle.closest("section").querySelector("h2").textContent}を${collapsed ? "開く" : "折りたたむ"}`);
+  toggle.querySelector("span").textContent = collapsed ? "開く" : "折りたたむ";
+  toggle.closest(".collapsible-panel").classList.toggle("is-collapsed", collapsed);
+}
+
 function setProjection() {
   if (!map.isStyleLoaded()) return;
   if (map.getProjection()?.type !== state.projection) {
@@ -1339,6 +1351,9 @@ function bindControls() {
   });
   [elements.histogramField, elements.scatterXField, elements.scatterYField].forEach((select) => {
     select.addEventListener("change", renderStatisticsPanel);
+  });
+  elements.panelToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => togglePanel(toggle));
   });
   elements.tourOrder.addEventListener("change", () => {
     state.tourOrder = elements.tourOrder.value;

@@ -23,7 +23,7 @@
       href="https://unpkg.com/maplibre-gl@6.10.0/dist/maplibre-gl.css"
     />
     <script src="https://unpkg.com/pmtiles@4.3.0/dist/pmtiles.js"></script>
-    <link rel="stylesheet" href="./styles.css?v=0.6.1" />
+    <link rel="stylesheet" href="./styles.css?v=0.6.2" />
   </head>
   <body>
     <a class="skip-link" href="#map">地図へ移動</a>
@@ -36,11 +36,11 @@
         <div>
           <p class="eyebrow">
             <a href="https://github.com/furuhashilab/YOKOZEatlas2026" target="_blank" rel="noreferrer">YOKOZE Atlas 2026</a>
-            <span> / MORIGAWA</span>
+            <span> / </span><a href="https://github.com/furuhashilab/YOKOZEatlas2026/issues?q=state%3Aopen%20label%3A%22MORIGAWA%22" target="_blank" rel="noreferrer">MORIGAWA</a>
           </p>
           <h1>
             <a id="home-title" class="title-text" href="./">荒川流域圏構想フィールドワーク</a>
-            <span class="version-label">v0.6.1</span>
+            <span class="version-label">v0.6.2</span>
           </h1>
         </div>
       </div>
@@ -137,50 +137,65 @@
           </div>
         </section>
 
-        <section class="chart-panel" aria-labelledby="chart-title">
+        <section class="chart-panel collapsible-panel" aria-labelledby="chart-title">
           <div class="section-heading chart-heading">
             <h2 id="chart-title">統計グラフ</h2>
-            <div class="chart-mode-switch" role="group" aria-label="グラフの種類">
-              <button class="chart-mode-button is-active" type="button" data-chart-mode="histogram" aria-pressed="true">
-                ヒストグラム
-              </button>
-              <button class="chart-mode-button" type="button" data-chart-mode="scatter" aria-pressed="false">
-                散布図
+            <div class="panel-actions">
+              <div class="chart-mode-switch" role="group" aria-label="グラフの種類">
+                <button class="chart-mode-button is-active" type="button" data-chart-mode="histogram" aria-pressed="true">
+                  ヒストグラム
+                </button>
+                <button class="chart-mode-button" type="button" data-chart-mode="scatter" aria-pressed="false">
+                  散布図
+                </button>
+              </div>
+              <button class="panel-toggle" type="button" data-panel-toggle aria-controls="chart-panel-content" aria-expanded="true" aria-label="統計グラフを折りたたむ">
+                <span>折りたたむ</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
               </button>
             </div>
           </div>
 
-          <div id="histogram-controls" class="chart-fields">
-            <label for="histogram-field">列名</label>
-            <select id="histogram-field" aria-label="ヒストグラムの列名"></select>
-          </div>
+          <div id="chart-panel-content" class="collapsible-content">
+            <div id="histogram-controls" class="chart-fields">
+              <label for="histogram-field">列名</label>
+              <select id="histogram-field" aria-label="ヒストグラムの列名"></select>
+            </div>
 
-          <div id="scatter-controls" class="chart-fields chart-fields-pair" hidden>
-            <label for="scatter-x-field">横軸
-              <select id="scatter-x-field" aria-label="散布図の横軸"></select>
-            </label>
-            <label for="scatter-y-field">縦軸
-              <select id="scatter-y-field" aria-label="散布図の縦軸"></select>
-            </label>
-          </div>
+            <div id="scatter-controls" class="chart-fields chart-fields-pair" hidden>
+              <label for="scatter-x-field">横軸
+                <select id="scatter-x-field" aria-label="散布図の横軸"></select>
+              </label>
+              <label for="scatter-y-field">縦軸
+                <select id="scatter-y-field" aria-label="散布図の縦軸"></select>
+              </label>
+            </div>
 
-          <div class="chart-frame">
-            <svg
-              id="statistics-chart"
-              viewBox="0 0 330 190"
-              role="img"
-              aria-label="統計グラフを読み込み中"
-            ></svg>
+            <div class="chart-frame">
+              <svg
+                id="statistics-chart"
+                viewBox="0 0 330 190"
+                role="img"
+                aria-label="統計グラフを読み込み中"
+              ></svg>
+            </div>
+            <div id="statistics-summary" class="statistics-summary" aria-live="polite"></div>
           </div>
-          <div id="statistics-summary" class="statistics-summary" aria-live="polite"></div>
         </section>
 
-        <section class="filters" aria-labelledby="filter-title">
+        <section class="filters collapsible-panel" aria-labelledby="filter-title">
           <div class="section-heading">
             <h2 id="filter-title">絞り込み</h2>
-            <button id="reset-filters" class="text-button" type="button">リセット</button>
+            <div class="panel-actions">
+              <button id="reset-filters" class="text-button" type="button">リセット</button>
+              <button class="panel-toggle" type="button" data-panel-toggle aria-controls="filter-panel-content" aria-expanded="true" aria-label="絞り込みを折りたたむ">
+                <span>折りたたむ</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+              </button>
+            </div>
           </div>
 
+          <div id="filter-panel-content" class="collapsible-content">
           <label class="field-label" for="search-input">名称・住所・備考</label>
           <div class="search-field">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -225,13 +240,21 @@
               <input id="cfg-only" type="checkbox" role="switch" />
             </label>
           </div>
+          </div>
         </section>
 
-        <section class="result-section" aria-labelledby="result-title">
+        <section class="result-section collapsible-panel" aria-labelledby="result-title">
           <div class="section-heading result-heading">
             <h2 id="result-title">地点一覧</h2>
-            <span id="result-count" class="result-count">—</span>
+            <div class="panel-actions">
+              <span id="result-count" class="result-count">—</span>
+              <button class="panel-toggle" type="button" data-panel-toggle aria-controls="result-panel-content" aria-expanded="true" aria-label="地点一覧を折りたたむ">
+                <span>折りたたむ</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+              </button>
+            </div>
           </div>
+          <div id="result-panel-content" class="collapsible-content">
           <label class="tour-order-field" for="tour-order">
             再生モード
             <select id="tour-order">
@@ -255,6 +278,7 @@
             <span id="tour-status" class="tour-status" aria-live="polite">読み込み中</span>
           </div>
           <div id="result-list" class="result-list" aria-live="polite"></div>
+          </div>
         </section>
 
         <footer class="sidebar-footer">
@@ -304,6 +328,6 @@
 
     <div id="sidebar-scrim" class="sidebar-scrim" hidden></div>
 
-    <script type="module" src="./app.js?v=0.6.1"></script>
+    <script type="module" src="./app.js?v=0.6.2"></script>
   </body>
 </html>
